@@ -2,6 +2,9 @@
 #include "../headers/application.h"
 #include "../headers/graphics.h"
 #include "../headers/input.h"
+#include "../headers/baseObject.h"
+
+#include <list>
 
 namespace{
      const int FPS = 60;
@@ -12,6 +15,7 @@ Application::Application()
 {
     SDL_Init(SDL_INIT_EVERYTHING);
     this->loop();
+    this->_objects = std::list<BaseObject*>();
 }
 
 Application::~Application()
@@ -23,6 +27,7 @@ void Application::loop()
 {    
     SDL_Event event;
     this->_input = new Input();
+
     auto g = new Graphics(600, 600);
 
     auto lastUpdateTime = SDL_GetTicks();
@@ -38,29 +43,32 @@ void Application::loop()
                 case SDL_QUIT : return;            
                 case SDL_KEYDOWN : 
                     if(event.key.repeat == 0)
-                        input->keyDownEvent(event);
+                        this->_input->keyDownEvent(event);
                 case SDL_KEYUP : 
                     if(event.key.repeat == 0)
-                        input->keyUpEvent(event);
+                        this->_input->keyUpEvent(event);
                 default:break;
             }
         }
 
         const int currentTime = SDL_GetTicks();
         int elapsedTime = currentTime - lastUpdateTime;
-        this->update(std::min<int>(elapsedTime, MAX_FRAME_TIME));
+        this->loopObjects(std::min<int>(elapsedTime, MAX_FRAME_TIME), *g);
         lastUpdateTime = currentTime;
+        
     }
 }
 
-void Application::update(float dt)
+void Application::loopObjects(float dt, Graphics &g)
 {
-
+    for(auto const& i : this->_objects)    
+    {
+        i->update(dt);
+        SDL_RenderClear(g.renderer);
+        i->draw(g);
+        SDL_RenderPresent(g.renderer);
+    }
 }
 
-void Application::draw(Graphics &graphics)
-{
-    
-}
 
 

@@ -2,5 +2,5 @@
 
 int main(int argv, char** args)
 {
-    new Application();
+    auto app = new Application();    
 }

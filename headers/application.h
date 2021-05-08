@@ -2,19 +2,21 @@
 #define APPLICATION_H
 
 class Input;
-
 class Graphics;
+class BaseObject;
+
+#include <list>
 
 class Application{
     public:
         Application();
         ~Application();     
         void loop();
-        void draw(Graphics &graphics);
-        void update(float dt);
-    private:
-        Input _input;
-
+        void loopObjects(float dt, Graphics &g);
+    protected:
+        Input *_input;        
+    private:        
+        std::list<BaseObject*> _objects;
 };
 
 #endif

@@ -4,7 +4,10 @@
 #include <map>
 #include <SDL2/SDL.h>
 
-
+struct Mouse{
+    int x;
+    int y;
+};
 
 class Input
 {

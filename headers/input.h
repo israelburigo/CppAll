@@ -28,7 +28,7 @@ class Input
         std::map<SDL_Scancode, bool> _heldKeys;
         std::map<SDL_Scancode, bool> _pressedKeys;
         std::map<SDL_Scancode, bool> _releasedKeys;
-        std::map<Uint8, bool> _mouseDown;
+        std::map<Uint8, bool> mouseDown;
 };
 
 #endif

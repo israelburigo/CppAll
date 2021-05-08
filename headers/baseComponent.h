@@ -11,23 +11,23 @@ struct sMouse{
     int x, y;
 };
 
-class BaseComponent : BaseObject
-{
+class BaseComponent : public BaseObject{
     public:
         BaseComponent(Application &app);
         ~BaseComponent();
         virtual void update(float dt);
         virtual void draw(Graphics &g);
         SDL_Rect bounds;
-        std::string text;        
+        std::string text;                 
         SDL_Color color;
         struct sMouse mouse;
         void (*onClick)(BaseComponent*);
-    private:
-        Application *_app;
+        Application *app;
+    private:       
         bool contains(struct sMouse m);
-        bool _mouseDown;
-        bool _isHover;
+    protected:        
+        bool mouseDown;
+        bool isHover;
 };
 
 #endif

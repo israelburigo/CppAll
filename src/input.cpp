@@ -36,12 +36,12 @@ bool Input::isKeyHeld(SDL_Scancode key){
 }
 
 void Input::mouseUpEvent(const SDL_MouseButtonEvent& e){
-    this->_mouseDown[e.button] = false;
+    this->mouseDown[e.button] = false;
 }
 void Input::mouseDownEvent(const  SDL_MouseButtonEvent& e){
-    this->_mouseDown[e.button] = true;
+    this->mouseDown[e.button] = true;
 }
 
 bool Input::isMouseDown(Uint8 m){
-    return this->_mouseDown[m];
+    return this->mouseDown[m];
 }

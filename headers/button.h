@@ -8,8 +8,7 @@
 class Button : public BaseComponent{
     public:
         Button(Application &app):BaseComponent(app){
-
-            color = {0x80, 0x80, 0x80, 0xFF};
+            color = {0xA0, 0xA0, 0xA0, 0xFF};
         }
         ~Button() {
 

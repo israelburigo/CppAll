@@ -1,22 +1,20 @@
 #include"../headers/baseComponent.h"
 #include <SDL2/SDL.h>
-#include <SDL2/SDL_TTF.h>
+#include <SDL2/SDL_ttf.h>
 
 #include <iostream>
 using namespace std;
 
 BaseComponent::BaseComponent(Application &app)
 {
-    this->_app = &app;
-    _mouseDown = false;
-    _isHover = false;
-    this->_app->objects.push_back(this);
+    this->app = &app;
+    mouseDown = false;
+    isHover = false;
+    this->app->objects.push_back(this);
 }
 
 BaseComponent::~BaseComponent()
 {
-
-
 }
 
 bool BaseComponent::contains(struct sMouse m)
@@ -29,19 +27,19 @@ void BaseComponent::update(float dt)
 {
     auto btnState = SDL_GetMouseState(&mouse.x, &mouse.y);
 
-    _isHover = contains(mouse);
+    isHover = contains(mouse);
 
-    auto mDown = this->_app->input->isMouseDown(btnState);
+    auto mDown = this->app->input->isMouseDown(btnState);
 
-    if(_isHover && !mDown && _mouseDown)
+    if(isHover && !mDown && mouseDown)
     {
-        _mouseDown = false;
+        mouseDown = false;
         if(onClick != NULL)
             onClick(this);
     }
 
-    if(_isHover && mDown)
-        _mouseDown = true;
+    if(isHover && mDown)
+        mouseDown = true;
 }
 
 void BaseComponent::draw(Graphics &g){
@@ -51,10 +49,22 @@ void BaseComponent::draw(Graphics &g){
     SDL_SetRenderDrawColor(g.renderer, color.r, color.g, color.b, color.a);
     SDL_RenderFillRect(g.renderer, &bounds);
 
-    TTF_Font* font = TTF_OpenFont("ARIAL.TTF", size);
-    SDL_Color foregroundColor = { 0, 0, 0 };
-    SDL_Surface* textSurface = TTF_RenderText_Shaded(font, text, foregroundColor, NULL, color);
-    SDL_BlitSurface(textSurface, NULL, , &bounds);
-    SDL_FreeSurface(textSurface);
+    auto font = TTF_OpenFont("C:/Windows/fonts/arial.ttf", 12); 
+    auto a = TTF_GetError();
+
+    SDL_Color fore = {0, 0, 0, 0xff}; 
+    auto surfaceMessage = TTF_RenderUTF8_Blended(font, text.c_str(), fore);
+    auto message = SDL_CreateTextureFromSurface(g.renderer, surfaceMessage);  
+
+    SDL_Rect dest = {
+        bounds.x + bounds.w/2 - surfaceMessage->clip_rect.w/2, 
+        bounds.y + bounds.h/2 - surfaceMessage->clip_rect.h/2,
+        surfaceMessage->clip_rect.w,
+        surfaceMessage->clip_rect.h
+    };
+
+    SDL_RenderCopy(g.renderer, message, NULL, &dest);
+    SDL_FreeSurface(surfaceMessage);
+    SDL_DestroyTexture(message);
     TTF_CloseFont(font);
 }

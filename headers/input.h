@@ -1,0 +1,27 @@
+#ifndef INPUT_H
+#define INPUT_H
+
+#include <map>
+#include <SDL2/SDL.h>
+
+
+
+class Input
+{
+    public:
+        Input();
+        ~Input();
+        void startLoop();
+        void keyUpEvent(const SDL_Event& e);
+        void keyDownEvent(const SDL_Event& e);
+
+        bool wasKeyPressed(SDL_Scancode key);
+        bool wasKeyReleased(SDL_Scancode key);
+        bool isKeyHeld(SDL_Scancode key);
+    private:
+        std::map<SDL_Scancode, bool> _heldKeys;
+        std::map<SDL_Scancode, bool> _pressedKeys;
+        std::map<SDL_Scancode, bool> _releasedKeys;
+};
+
+#endif

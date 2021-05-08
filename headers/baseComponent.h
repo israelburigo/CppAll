@@ -5,11 +5,7 @@
 #include "baseObject.h"
 #include "graphics.h"
 #include "application.h"
-
-
-struct sColour{
-    unsigned char r, g, b, a;
-};
+#include <string>
 
 struct sMouse{
     int x, y;
@@ -20,13 +16,18 @@ class BaseComponent : BaseObject
     public:
         BaseComponent(Application &app);
         ~BaseComponent();
-        void update(float dt) override;
-        void draw(Graphics &g) override;
+        virtual void update(float dt);
+        virtual void draw(Graphics &g);
         SDL_Rect bounds;
-        struct sColour color;
+        std::string text;        
+        SDL_Color color;
         struct sMouse mouse;
+        void (*onClick)(BaseComponent*);
     private:
         Application *_app;
+        bool contains(struct sMouse m);
+        bool _mouseDown;
+        bool _isHover;
 };
 
 #endif

@@ -34,3 +34,14 @@ bool Input::wasKeyReleased(SDL_Scancode key){
 bool Input::isKeyHeld(SDL_Scancode key){
     return this->_heldKeys[key];
 }
+
+void Input::mouseUpEvent(const SDL_MouseButtonEvent& e){
+    this->_mouseDown[e.button] = false;
+}
+void Input::mouseDownEvent(const  SDL_MouseButtonEvent& e){
+    this->_mouseDown[e.button] = true;
+}
+
+bool Input::isMouseDown(Uint8 m){
+    return this->_mouseDown[m];
+}

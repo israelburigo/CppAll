@@ -1,10 +1,9 @@
 #ifndef APPLICATION_H
 #define APPLICATION_H
 
-class Input;
-class Graphics;
-class BaseObject;
-
+#include "../headers/graphics.h"
+#include "../headers/input.h"
+#include "../headers/baseObject.h"
 #include <list>
 
 class Application{
@@ -13,10 +12,10 @@ class Application{
         ~Application();     
         void loop();
         void loopObjects(float dt, Graphics &g);
-    protected:
-        Input *_input;        
+        std::list<BaseObject*> objects;
+        Input *input;    
     private:        
-        std::list<BaseObject*> _objects;
+        
 };
 
 #endif

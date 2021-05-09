@@ -21,7 +21,7 @@ class BaseComponent : public BaseObject{
         std::string text;                 
         SDL_Color color;
         struct sMouse mouse;
-        void (*onClick)(BaseComponent*);
+        void (*onClick)(BaseComponent*) = NULL;
         Application *app;
     private:       
         bool contains(struct sMouse m);

@@ -34,7 +34,7 @@ void Application::loop()
     SDL_Event event;
     this->input = new Input();
 
-    this->graphics = new Graphics(600, 600);
+    this->graphics = new Graphics(800, 650);
 
     auto lastUpdateTime = SDL_GetTicks();
 
@@ -69,9 +69,10 @@ void Application::loop()
 
         const int currentTime = SDL_GetTicks();
         int elapsedTime = currentTime - lastUpdateTime;
+        if(elapsedTime < 16)
+            _sleep(16 - (unsigned long)elapsedTime);
         this->loopObjects(std::min<int>(elapsedTime, MAX_FRAME_TIME), *this->graphics);
-        lastUpdateTime = currentTime;
-        
+        lastUpdateTime = currentTime;        
     }
 }
 

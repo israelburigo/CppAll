@@ -4,9 +4,15 @@
 #include <windows.h>
 #include <string.h>
 #include <iostream>
+#include <SDL2/SDL.h>
+
 using namespace std; 
 
-// Returns an empty string if dialog is canceled
+Uint32 get_pixel_at(Uint32 * pixels, int x, int y, int w)
+{
+    return pixels[y * w + x];
+}
+
 string openfilename(char *filter = "All Files (*.*)\0*.*\0", HWND owner = NULL) {
   OPENFILENAME ofn;
   char fileName[MAX_PATH] = "";

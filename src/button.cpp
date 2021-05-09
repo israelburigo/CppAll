@@ -3,11 +3,13 @@
 
 void Button::update(float dt)
 {
-    BaseComponent::update(dt);
-
     color = {0xA0, 0xA0, 0xA0, 0xFF};
     if(BaseComponent::isHover)
         color = {0xC0, 0xC0, 0xC0, 0xFF};
+
+    BaseComponent::update(dt);
+
+   
 }
 
 void Button::draw(Graphics &g)

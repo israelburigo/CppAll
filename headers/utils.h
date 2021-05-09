@@ -13,6 +13,14 @@ Uint32 get_pixel_at(Uint32 * pixels, int x, int y, int w)
     return pixels[y * w + x];
 }
 
+void set_pixel(SDL_Surface *surface, int x, int y, Uint32 pixel)
+{
+  Uint32 * const target_pixel = (Uint32 *) ((Uint8 *) surface->pixels
+                                             + y * surface->pitch
+                                             + x * surface->format->BytesPerPixel);
+  *target_pixel = pixel;
+}
+
 string openfilename(char *filter = "All Files (*.*)\0*.*\0", HWND owner = NULL) {
   OPENFILENAME ofn;
   char fileName[MAX_PATH] = "";

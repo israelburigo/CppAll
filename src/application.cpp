@@ -69,8 +69,6 @@ void Application::loop()
 
         const int currentTime = SDL_GetTicks();
         int elapsedTime = currentTime - lastUpdateTime;
-        if(elapsedTime < 16)
-            _sleep(16 - (unsigned long)elapsedTime);
         this->loopObjects(std::min<int>(elapsedTime, MAX_FRAME_TIME), *this->graphics);
         lastUpdateTime = currentTime;        
     }

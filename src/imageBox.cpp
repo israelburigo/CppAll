@@ -21,6 +21,6 @@ void ImageBox::loadImg(string s)
     if (surface) 
     {
         path = s;
-        texture = SDL_CreateTextureFromSurface(app->graphics->renderer, surface);
+        texture = SDL_CreateTextureFromSurface(app->graphics->renderer, surface);       
     }
 }

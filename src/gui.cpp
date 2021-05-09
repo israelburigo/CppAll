@@ -67,24 +67,9 @@ void botaoRedClick(BaseComponent *sender)
 
     img->loadImg(imgBox->path);
 
-    int w = img->surface->clip_rect.w;
-    int h = img->surface->clip_rect.h;
-
-    if(SDL_MUSTLOCK(img->surface))
-        SDL_LockSurface(img->surface);
-
     // ARGB
-    for (int x = 0; x < w; x++)
-        for (int y = 0; y < h; y++)
-        {
-            auto pixels = (Uint32*)img->surface->pixels;
-            auto px = get_pixel_at(pixels, x, y, w);
-            set_pixel(img->surface, x, y, px & 0xffff0000);
-        }
-    if(SDL_MUSTLOCK(img->surface))
-        SDL_UnlockSurface(img->surface);
-
-    img->texture = SDL_CreateTextureFromSurface(img->app->graphics->renderer, img->surface);
+    auto mask = 0xffff0000;
+    img->changePixelMask(mask);
 }
 
 void botaoBlueClick(BaseComponent *sender)
@@ -94,24 +79,9 @@ void botaoBlueClick(BaseComponent *sender)
 
     img->loadImg(imgBox->path);
 
-    int w = img->surface->clip_rect.w;
-    int h = img->surface->clip_rect.h;
-
-    if(SDL_MUSTLOCK(img->surface))
-        SDL_LockSurface(img->surface);
-
     // ARGB
-    for (int x = 0; x < w; x++)
-        for (int y = 0; y < h; y++)
-        {
-            auto pixels = (Uint32*)img->surface->pixels;
-            auto px = get_pixel_at(pixels, x, y, w);
-            set_pixel(img->surface, x, y, px & 0xff0000ff);
-        }
-    if(SDL_MUSTLOCK(img->surface))
-        SDL_UnlockSurface(img->surface);
-
-    img->texture = SDL_CreateTextureFromSurface(img->app->graphics->renderer, img->surface);
+    auto mask = 0xff0000ff;
+    img->changePixelMask(mask);
 }
 
 void botaoGreenClick(BaseComponent *sender)
@@ -121,22 +91,7 @@ void botaoGreenClick(BaseComponent *sender)
 
     img->loadImg(imgBox->path);
 
-    int w = img->surface->clip_rect.w;
-    int h = img->surface->clip_rect.h;
-
-    if(SDL_MUSTLOCK(img->surface))
-        SDL_LockSurface(img->surface);
-
     // ARGB
-    for (int x = 0; x < w; x++)
-        for (int y = 0; y < h; y++)
-        {
-            auto pixels = (Uint32*)img->surface->pixels;
-            auto px = get_pixel_at(pixels, x, y, w);
-            set_pixel(img->surface, x, y, px & 0xff00ff00);
-        }
-    if(SDL_MUSTLOCK(img->surface))
-        SDL_UnlockSurface(img->surface);
-
-    img->texture = SDL_CreateTextureFromSurface(img->app->graphics->renderer, img->surface);
+    auto mask = 0xff00ff00;
+    img->changePixelMask(mask);
 }

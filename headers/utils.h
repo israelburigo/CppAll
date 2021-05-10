@@ -10,7 +10,7 @@ using namespace std;
 
 
 
-string openfilename(char *filter = "All Files (*.*)\0*.*\0", HWND owner = NULL) {
+string openfilename(char *filter = "All Files (*.*)\0*.*\0", HWND owner = nullptr) {
   OPENFILENAME ofn;
   char fileName[MAX_PATH] = "";
   ZeroMemory(&ofn, sizeof(ofn));

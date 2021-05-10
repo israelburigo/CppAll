@@ -7,6 +7,18 @@
 #include <SDL2/SDL.h>
 #include <string>
 
+typedef struct{
+    unsigned char b;
+    unsigned char g;
+    unsigned char r;
+    unsigned char a;
+} sBGRA;
+
+typedef union {
+    Uint32 value;
+    sBGRA argb;   
+} uColor;
+
 class ImageBox : public BaseComponent{
     public:
         ImageBox(Application &app):BaseComponent(app){}
@@ -17,13 +29,11 @@ class ImageBox : public BaseComponent{
         void update(float dt) override;
         void draw(Graphics &g) override;
         void loadImg(string s);
-        void changePixelMask(Uint32 mask);
+        void loopPixels(void (*f)(int, int, uColor*));
         string path;
         SDL_Surface *surface = NULL;
         SDL_Texture *texture = NULL;
     private:
-        void set_pixel(int x, int y, Uint32 pixel);
-        Uint32 get_pixel_at(Uint32 * pixels, int x, int y, int w);
 };
 
 #endif

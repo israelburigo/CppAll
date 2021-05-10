@@ -8,8 +8,6 @@ void Button::update(float dt)
         color = {0xC0, 0xC0, 0xC0, 0xFF};
 
     BaseComponent::update(dt);
-
-   
 }
 
 void Button::draw(Graphics &g)

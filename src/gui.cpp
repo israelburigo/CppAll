@@ -23,7 +23,7 @@ void botaoGreenClick(BaseComponent *sender);
 
 void createGui(Application &app)
 {
-    createButton(app, 10, 10, 100, 30, "Load Img" , botaoTesteClick);
+    createButton(app, 10, 10, 100, 30, "Load Img" , botaoTesteClick);    
     createButton(app, 10, 50, 100, 30, "Red", botaoRedClick);
     createButton(app, 10, 90, 100, 30, "Blue", botaoBlueClick);
     createButton(app, 10, 130, 100, 30, "Green" , botaoGreenClick);
@@ -67,9 +67,10 @@ void botaoRedClick(BaseComponent *sender)
 
     img->loadImg(imgBox->path);
 
-    // ARGB
-    auto mask = 0xffff0000;
-    img->changePixelMask(mask);
+    img->loopPixels([](int x, int y, uColor *color)-> void {
+        color->argb.b = 0;
+        color->argb.g = 0;
+    });
 }
 
 void botaoBlueClick(BaseComponent *sender)
@@ -79,9 +80,10 @@ void botaoBlueClick(BaseComponent *sender)
 
     img->loadImg(imgBox->path);
 
-    // ARGB
-    auto mask = 0xff0000ff;
-    img->changePixelMask(mask);
+    img->loopPixels([](int x, int y, uColor *color)-> void {
+        color->argb.r = 0;
+        color->argb.g = 0;
+    });
 }
 
 void botaoGreenClick(BaseComponent *sender)
@@ -91,7 +93,8 @@ void botaoGreenClick(BaseComponent *sender)
 
     img->loadImg(imgBox->path);
 
-    // ARGB
-    auto mask = 0xff00ff00;
-    img->changePixelMask(mask);
+    img->loopPixels([](int x, int y, uColor *color)-> void {
+        color->argb.b = 0;
+        color->argb.r = 0;
+    });
 }

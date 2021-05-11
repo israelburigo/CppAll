@@ -9,14 +9,16 @@
 using namespace std; 
 
 
-
-string openfilename(char *filter = "All Files (*.*)\0*.*\0", HWND owner = nullptr) {
+/**
+ * \brief Método que chama OpneFileDialog do windows
+ * \param filter filtro passado ao componente do windows
+ */
+string openfilename(char *filter = "All Files (*.*)\0*.*\0") {
   OPENFILENAME ofn;
   char fileName[MAX_PATH] = "";
   ZeroMemory(&ofn, sizeof(ofn));
 
   ofn.lStructSize = sizeof(OPENFILENAME);
-  ofn.hwndOwner = owner;
   ofn.lpstrFilter = filter;
   ofn.lpstrFile = fileName;
   ofn.nMaxFile = MAX_PATH;

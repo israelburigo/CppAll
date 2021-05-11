@@ -7,19 +7,31 @@
 #include <list>
 #include <string>
 
-typedef struct{
-    Graphics g;
-} sEventArgs;
-
+/**
+ * \brief Classe principal de aplicação
+ */
 class Application{
     public:
         std::list<BaseObject*> objects;
         Input *input = NULL;   
         Graphics *graphics;
         Application();
-        ~Application();     
+        ~Application();  
+        /**
+         * \brief Método que é sempre executado enquanto a aplicação estiver rodando
+         */   
         void loop();
-        void loopObjects(float dt,  Graphics &g);        
+        /**
+         * \brief Método que percorre os componentes d aplicação e chama Update e Draw de cada um deles
+         * \param dt delta-time entre cada loop
+         * \param g grafico a qual os objetos serão desenhados
+         */ 
+        void loopObjects(float dt,  Graphics &g); 
+        /**
+         * \brief Método que busca um componete da aplicação pela tag
+         * \param tag tag
+         * \return Componente encontrado pela tag, retorna NULL se não encontrar nenhum
+         */        
         BaseObject* getByTag(std::string tag);
     private:        
         

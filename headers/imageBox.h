@@ -28,7 +28,15 @@ class ImageBox : public BaseComponent{
         }        
         void update(float dt) override;
         void draw(Graphics &g) override;
+        /**
+         * \brief Método para carregar uma imagem do disco na textura desse componente
+         * \param s caminho da imagem no disco
+         */
         void loadImg(string s);
+        /**
+         * \brief Método que percorre cada pixel da imagem carregada no componente
+         * \param f função callback iterada de cada pixel
+         */
         void loopPixels(void (*f)(int, int, uColor*));
         string path;
         SDL_Surface *surface = NULL;
